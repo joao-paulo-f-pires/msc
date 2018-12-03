@@ -1,7 +1,5 @@
 package org.quasar.interactive.coffee.dispenser.sm;
 
-import java.util.Arrays;
-import java.util.List;
 
 public class NoCoins extends CoffeeDispenserState{
   private static final String NO_COINS = "NoCoins";
