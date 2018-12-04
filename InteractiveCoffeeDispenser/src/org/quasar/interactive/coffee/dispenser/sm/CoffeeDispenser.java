@@ -20,12 +20,7 @@ public class CoffeeDispenser {
   /**
    * Valid coins in cents.
    */
-  public static final int[] VALID_COINS = { 10, 20, 50, 100, 200 };
-
-  /**
-   * Coffee types. Volumes are in [ml]
-   */
-  public static final CoffeeType[] COFFEE_TYPES = { CoffeeType.RISTRETTO, CoffeeType.ESPRESSO, CoffeeType.LUNGO };
+  private static final int[] VALID_COINS = { 10, 20, 50, 100, 200 };
 
   /**
    * Total amount inserted into the dispenser by the client.
@@ -61,6 +56,11 @@ public class CoffeeDispenser {
    * Fill the water reservoir.
    */
   public void fill() {
+    //pre: waterAvailable < RESERVOIR_CAPACITY)
+    if (!(waterAvailable < RESERVOIR_CAPACITY)) {
+      throw new InvariantException(String.format(Constants.INVALID_COIN_ERROR_MESSAGE, RESERVOIR_CAPACITY));
+    }
+    waterAvailable = RESERVOIR_CAPACITY;
     currentstate.fill(this);
   }
 
@@ -71,7 +71,20 @@ public class CoffeeDispenser {
    *          Inserted coin.
    */
   public void accept(int amount) {
-    currentstate.accept(this, amount);
+    //pre: VALID_COINS->includes(i) 
+    boolean isCoinValid = false;
+    for(int coin: VALID_COINS){
+      if(coin == amount){
+        isCoinValid =  true;
+        break;
+      }
+    }
+    
+    if(!isCoinValid){
+      throw new InvariantException(String.format(Constants.INVALID_COIN_ERROR_MESSAGE, amount));
+    }
+    this.clientAmount = amount;
+    currentstate.accept(this);
   }
 
   /**
@@ -82,13 +95,33 @@ public class CoffeeDispenser {
    *          Coffee type.
    */
   public void brew(CoffeeType coffeType) {
-    currentstate.brew(this, coffeType);
+    // pre: waterAvailable >= MINIMUM_CAPACITY and clientAmount >= COFFEE_PRICE;
+    if (!(waterAvailable >= MINIMUM_CAPACITY && clientAmount >= COFFEE_PRICE)) {
+      throw new InvariantException(Constants.INVALID_COIN_ERROR_MESSAGE);
+    }
+    clientAmount -= COFFEE_PRICE;
+    amountEarned += COFFEE_PRICE;
+    coffeesBrewed += 1;
+    
+    if(CoffeeType.RISTRETTO == coffeType){
+      waterAvailable -= 15;  
+    }
+    
+    if(CoffeeType.ESPRESSO == coffeType){
+      waterAvailable -= 30;  
+    }
+    
+    if(CoffeeType.LUNGO == coffeType){
+      waterAvailable -= 50;  
+    }
+    currentstate.brew(this);
   }
 
   /**
    * ReturnS the coins currently in the dispenser.
    */
   public void reset() {
+    this.clientAmount = 0;
     currentstate.reset(this);
   }
 
@@ -100,24 +133,10 @@ public class CoffeeDispenser {
   }
 
   /**
-   * @param amountEarned the amountEarned to set
-   */
-  public void setAmountEarned(int amountEarned) {
-    this.amountEarned = amountEarned;
-  }
-
-  /**
    * @return the clientAmount
    */
   public int getClientAmount() {
     return clientAmount;
-  }
-
-  /**
-   * @param clientAmount the clientAmount to set
-   */
-  public void setClientAmount(int clientAmount) {
-    this.clientAmount = clientAmount;
   }
 
   /**
@@ -128,24 +147,10 @@ public class CoffeeDispenser {
   }
 
   /**
-   * @param coffeesBrewed the coffeesBrewed to set
-   */
-  public void setCoffeesBrewed(int coffeesBrewed) {
-    this.coffeesBrewed = coffeesBrewed;
-  }
-
-  /**
    * @return the waterAvailable
    */
   public int getWaterAvailable() {
     return waterAvailable;
-  }
-
-  /**
-   * @param waterAvailable the waterAvailable to set
-   */
-  public void setWaterAvailable(int waterAvailable) {
-    this.waterAvailable = waterAvailable;
   }
 
   /**
@@ -160,5 +165,5 @@ public class CoffeeDispenser {
    */
   public void setCurrentstate(CoffeeDispenserState currentstate) {
     this.currentstate = currentstate;
-  }
+  }  
 }

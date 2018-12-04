@@ -2,24 +2,34 @@ package org.quasar.interactive.coffee.dispenser.sm;
 
 
 public class Unavailable extends CoffeeDispenserState{
-
   @Override
   public void fill(CoffeeDispenser coffeeDispenser) {
+    //Transition: Unavailable -> NoCoins
+    if(coffeeDispenser.getClientAmount() == 0 && coffeeDispenser.getWaterAvailable() >= 
+        CoffeeDispenser.MINIMUM_CAPACITY){
+      coffeeDispenser.setCurrentstate(new NoCoins());
+    }
     
-  }
-
-  @Override
-  public void accept(CoffeeDispenser coffeeDispenser, int amount) {
-    throw new UnsupportedOperationException(String.format(UNSUPPORTED_OPERATION_ERROR_MESSAGE, "accept", "Unavailable"));
-  }
-
-  @Override
-  public void brew(CoffeeDispenser coffeeDispenser, CoffeeType coffeType) {
-    throw new UnsupportedOperationException(String.format(UNSUPPORTED_OPERATION_ERROR_MESSAGE, "brew", "Unavailable"));
-  }
-
-  @Override
-  public void reset(CoffeeDispenser coffeeDispenser) {
+    //Transition: Unavailable -> HasCoins
+    if(coffeeDispenser.getClientAmount() >= 0 && coffeeDispenser.getClientAmount() < CoffeeDispenser.COFFEE_PRICE 
+        && coffeeDispenser.getWaterAvailable() >= CoffeeDispenser.MINIMUM_CAPACITY){
+      coffeeDispenser.setCurrentstate(new HasCoins());
+    }
     
+    //Transition: Unavailable -> EnoughCoins
+    if(coffeeDispenser.getClientAmount() >= CoffeeDispenser.COFFEE_PRICE && 
+        coffeeDispenser.getWaterAvailable() >= CoffeeDispenser.MINIMUM_CAPACITY){
+      coffeeDispenser.setCurrentstate(new EnoughCoins());
+    }
+  }
+
+  @Override
+  public void accept(CoffeeDispenser coffeeDispenser) {
+    throw new UnsupportedOperationException(String.format(Constants.UNSUPPORTED_OPERATION_ERROR_MESSAGE, "accept", getClass().getSimpleName()));
+  }
+
+  @Override
+  public void brew(CoffeeDispenser coffeeDispenser) {
+    throw new UnsupportedOperationException(String.format(Constants.UNSUPPORTED_OPERATION_ERROR_MESSAGE, "brew", getClass().getSimpleName()));
   }
 }
