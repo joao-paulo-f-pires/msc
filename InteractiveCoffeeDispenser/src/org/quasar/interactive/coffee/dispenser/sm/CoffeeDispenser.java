@@ -83,7 +83,7 @@ public class CoffeeDispenser {
     if(!isCoinValid){
       throw new InvariantException(String.format(Constants.INVALID_COIN_ERROR_MESSAGE, amount));
     }
-    this.clientAmount = amount;
+    this.clientAmount += amount;
     currentstate.accept(this);
   }
 
@@ -97,7 +97,7 @@ public class CoffeeDispenser {
   public void brew(CoffeeType coffeType) {
     // pre: waterAvailable >= MINIMUM_CAPACITY and clientAmount >= COFFEE_PRICE;
     if (!(waterAvailable >= MINIMUM_CAPACITY && clientAmount >= COFFEE_PRICE)) {
-      throw new InvariantException(Constants.INVALID_COIN_ERROR_MESSAGE);
+      throw new InvariantException(Constants.BREW_ERROR_MESSAGE);
     }
     clientAmount -= COFFEE_PRICE;
     amountEarned += COFFEE_PRICE;

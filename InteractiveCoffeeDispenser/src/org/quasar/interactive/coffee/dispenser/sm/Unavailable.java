@@ -1,7 +1,7 @@
 package org.quasar.interactive.coffee.dispenser.sm;
 
 
-public class Unavailable extends CoffeeDispenserState{
+public class Unavailable implements CoffeeDispenserState{
   @Override
   public void fill(CoffeeDispenser coffeeDispenser) {
     //Transition: Unavailable -> NoCoins
@@ -31,5 +31,11 @@ public class Unavailable extends CoffeeDispenserState{
   @Override
   public void brew(CoffeeDispenser coffeeDispenser) {
     throw new UnsupportedOperationException(String.format(Constants.UNSUPPORTED_OPERATION_ERROR_MESSAGE, "brew", getClass().getSimpleName()));
+  }
+  
+  @Override
+  public void reset(CoffeeDispenser coffeeDispenser) {
+    //Transition: Unavailable -> Unavailable
+    //Nothing to be done.
   }
 }

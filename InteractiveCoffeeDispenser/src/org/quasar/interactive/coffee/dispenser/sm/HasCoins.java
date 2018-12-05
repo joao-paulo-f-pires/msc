@@ -1,6 +1,6 @@
 package org.quasar.interactive.coffee.dispenser.sm;
 
-public class HasCoins extends CoffeeDispenserState{
+public class HasCoins implements CoffeeDispenserState{
 
   @Override
   public void fill(CoffeeDispenser coffeeDispenser) {
