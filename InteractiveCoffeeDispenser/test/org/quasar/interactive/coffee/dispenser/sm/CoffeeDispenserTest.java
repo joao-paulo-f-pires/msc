@@ -80,7 +80,7 @@ public class CoffeeDispenserTest {
     coffeeDispenser.brew(CoffeeType.LUNGO);
     coffeeDispenser.brew(CoffeeType.LUNGO);
     coffeeDispenser.brew(CoffeeType.LUNGO);
-    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.RISTRETTO);
 
     Assert.assertEquals(Unavailable.class.getSimpleName(), coffeeDispenser.getCurrentstate().getClass().getSimpleName());
     Assert.assertEquals(200, coffeeDispenser.getClientAmount());
@@ -369,6 +369,57 @@ public class CoffeeDispenserTest {
 
     Assert.assertEquals(NoCoins.class.getSimpleName(), coffeeDispenser.getCurrentstate().getClass().getSimpleName());
     Assert.assertEquals(0, coffeeDispenser.getClientAmount());
+  }
+  
+  @Test(expected = InvariantException.class)
+  public void PRE_CONDITION_fill_test(){
+    final CoffeeDispenser coffeeDispenser = new CoffeeDispenser();
+    coffeeDispenser.fill();
+  }
+  
+  @Test(expected = InvariantException.class)
+  public void PRE_CONDITION_accept_test(){
+    final CoffeeDispenser coffeeDispenser = new CoffeeDispenser();
+    coffeeDispenser.accept(0);
+  }
+  
+  @Test(expected = InvariantException.class)
+  public void PRE_CONDITION_1_brew_test(){
+    final CoffeeDispenser coffeeDispenser = new CoffeeDispenser();
+    coffeeDispenser.brew(CoffeeType.RISTRETTO);
+  }
+  
+  @Test(expected = InvariantException.class)
+  public void PRE_CONDITION_2_brew_test(){
+    final CoffeeDispenser coffeeDispenser = new CoffeeDispenser();
 
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(100);
+    coffeeDispenser.accept(20);
+
+    Assert.assertEquals(EnoughCoins.class.getSimpleName(), coffeeDispenser.getCurrentstate().getClass().getSimpleName());
+    Assert.assertEquals(920, coffeeDispenser.getClientAmount());
+
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+    coffeeDispenser.brew(CoffeeType.LUNGO);
+
+    Assert.assertEquals(Unavailable.class.getSimpleName(), coffeeDispenser.getCurrentstate().getClass().getSimpleName());
+    Assert.assertEquals(20, coffeeDispenser.getClientAmount());
+   
+    coffeeDispenser.brew(CoffeeType.ESPRESSO);
   }
 }
