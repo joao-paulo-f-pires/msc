@@ -10,8 +10,7 @@ public class HasCoins implements CoffeeDispenserState{
   @Override
   public void accept(CoffeeDispenser coffeeDispenser) {
     //Transition: HasCoins -> EnoughCoins
-    if(coffeeDispenser.getClientAmount() >= CoffeeDispenser.COFFEE_PRICE
-        && coffeeDispenser.getWaterAvailable() >= CoffeeDispenser.MINIMUM_CAPACITY){
+    if(coffeeDispenser.getClientAmount() >= CoffeeDispenser.COFFEE_PRICE){
       coffeeDispenser.setCurrentstate(new EnoughCoins());
     }
   }

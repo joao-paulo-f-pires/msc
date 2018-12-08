@@ -13,7 +13,8 @@ public class CoffeeDispenser {
   public static final int RESERVOIR_CAPACITY = 500;
 
   /**
-   * Milliliters [ml]. Reservoir should not be used until exhaustion.
+   * Milliliters [ml].<br>
+   * Reservoir should not be used until exhaustion.
    */
   public static final int MINIMUM_CAPACITY = 100;
 
@@ -58,7 +59,7 @@ public class CoffeeDispenser {
   public void fill() {
     //pre: waterAvailable < RESERVOIR_CAPACITY)
     if (!(waterAvailable < RESERVOIR_CAPACITY)) {
-      throw new InvariantException(String.format(Constants.INVALID_COIN_ERROR_MESSAGE, RESERVOIR_CAPACITY));
+      throw new InvariantException(String.format(Constants.FILL_ERROR_MESSAGE, RESERVOIR_CAPACITY));
     }
     waterAvailable = RESERVOIR_CAPACITY;
     currentstate.fill(this);
@@ -89,8 +90,6 @@ public class CoffeeDispenser {
 
   /**
    * A coffee should be brewed<br>
-   * Note, that there is no pre condition. The state machine below handles the correct amount.
-   * 
    * @param coffeType
    *          Coffee type.
    */
@@ -103,67 +102,41 @@ public class CoffeeDispenser {
     amountEarned += COFFEE_PRICE;
     coffeesBrewed += 1;
     
-    if(CoffeeType.RISTRETTO == coffeType){
+    if(CoffeeType.RISTRETTO.equals(coffeType)){
       waterAvailable -= 15;  
     }
     
-    if(CoffeeType.ESPRESSO == coffeType){
+    if(CoffeeType.ESPRESSO.equals(coffeType)){
       waterAvailable -= 30;  
     }
     
-    if(CoffeeType.LUNGO == coffeType){
+    if(CoffeeType.LUNGO.equals(coffeType)){
       waterAvailable -= 50;  
     }
     currentstate.brew(this);
   }
 
   /**
-   * ReturnS the coins currently in the dispenser.
+   * Returns the coins currently in the dispenser.
    */
   public void reset() {
     this.clientAmount = 0;
     currentstate.reset(this);
   }
 
-  /**
-   * @return the amountEarned
-   */
-  public int getAmountEarned() {
-    return amountEarned;
-  }
-
-  /**
-   * @return the clientAmount
-   */
   public int getClientAmount() {
     return clientAmount;
   }
 
-  /**
-   * @return the coffeesBrewed
-   */
-  public int getCoffeesBrewed() {
-    return coffeesBrewed;
-  }
-
-  /**
-   * @return the waterAvailable
-   */
   public int getWaterAvailable() {
     return waterAvailable;
   }
-
-  /**
-   * @return the currentstate
-   */
+  
   public CoffeeDispenserState getCurrentstate() {
     return currentstate;
   }
 
-  /**
-   * @param currentstate the currentstate to set
-   */
   public void setCurrentstate(CoffeeDispenserState currentstate) {
     this.currentstate = currentstate;
-  }  
+  }
 }

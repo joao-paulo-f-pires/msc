@@ -5,20 +5,17 @@ public class Unavailable implements CoffeeDispenserState{
   @Override
   public void fill(CoffeeDispenser coffeeDispenser) {
     //Transition: Unavailable -> NoCoins
-    if(coffeeDispenser.getClientAmount() == 0 && coffeeDispenser.getWaterAvailable() >= 
-        CoffeeDispenser.MINIMUM_CAPACITY){
+    if(coffeeDispenser.getClientAmount() == 0){
       coffeeDispenser.setCurrentstate(new NoCoins());
     }
     
     //Transition: Unavailable -> HasCoins
-    if(coffeeDispenser.getClientAmount() >= 0 && coffeeDispenser.getClientAmount() < CoffeeDispenser.COFFEE_PRICE 
-        && coffeeDispenser.getWaterAvailable() >= CoffeeDispenser.MINIMUM_CAPACITY){
+    if(coffeeDispenser.getClientAmount() > 0 && coffeeDispenser.getClientAmount() < CoffeeDispenser.COFFEE_PRICE){
       coffeeDispenser.setCurrentstate(new HasCoins());
     }
     
     //Transition: Unavailable -> EnoughCoins
-    if(coffeeDispenser.getClientAmount() >= CoffeeDispenser.COFFEE_PRICE && 
-        coffeeDispenser.getWaterAvailable() >= CoffeeDispenser.MINIMUM_CAPACITY){
+    if(coffeeDispenser.getClientAmount() > CoffeeDispenser.COFFEE_PRICE){
       coffeeDispenser.setCurrentstate(new EnoughCoins());
     }
   }
