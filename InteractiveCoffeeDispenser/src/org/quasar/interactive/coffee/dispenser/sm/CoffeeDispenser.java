@@ -36,7 +36,7 @@ public class CoffeeDispenser {
   /**
    * Total amount earned by the dispenser
    */
-  private int amountEarned = coffeesBrewed * COFFEE_PRICE;
+  private int amountEarned;
 
   /**
    * Remaining water in reservoir [ml]

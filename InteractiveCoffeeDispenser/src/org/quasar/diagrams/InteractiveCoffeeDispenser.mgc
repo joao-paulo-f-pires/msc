@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class
+        name="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenser"
+        x="54" y="105">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"
+            endpointName="currentstate" kind="Simple"/>
+        <Communication destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"/>
+    </Class>
+    <Class
+        name="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"
+        x="360" y="170">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.HasCoins"
+        x="50" y="361">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"/>
+        <Communication destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenser"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.EnoughCoins"
+        x="256" y="361">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"/>
+        <Communication destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenser"/>
+    </Class>
+    <Class
+        name="org.quasar.interactive.coffee.dispenser.sm.InvariantException"
+        x="652" y="245">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.CoffeeType"
+        x="649" y="43">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.Constants"
+        x="651" y="194">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.NoCoins"
+        x="466" y="361">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"/>
+        <Communication destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenser"/>
+    </Class>
+    <Class name="org.quasar.interactive.coffee.dispenser.sm.Unavailable"
+        x="673" y="360">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenserState"/>
+        <Communication destinationClassName="org.quasar.interactive.coffee.dispenser.sm.CoffeeDispenser"/>
+    </Class>
+</ClassDiagram>
